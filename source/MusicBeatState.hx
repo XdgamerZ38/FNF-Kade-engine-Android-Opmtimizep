@@ -1,19 +1,24 @@
 package;
 
+#if windows
+import Discord.DiscordClient;
+#end
+import flixel.tweens.FlxTween;
+import flixel.util.FlxColor;
+import openfl.Lib;
+import Conductor.BPMChangeEvent;
 import flixel.FlxG;
-import flixel.input.FlxInput;
-import flixel.input.actions.FlxAction;
-import flixel.input.actions.FlxActionInput;
-import flixel.input.actions.FlxActionInputDigital;
-import flixel.input.actions.FlxActionManager;
-import flixel.input.actions.FlxActionSet;
-import flixel.input.gamepad.FlxGamepadButton;
-import flixel.input.gamepad.FlxGamepadInputID;
+import flixel.addons.transition.FlxTransitionableState;
+import flixel.addons.ui.FlxUIState;
+import flixel.math.FlxRect;
+import flixel.util.FlxTimer;
+#if mobileC
 import flixel.input.keyboard.FlxKey;
 import flixel.group.FlxGroup;
 import ui.Hitbox;
 import ui.FlxVirtualPad;
 import flixel.ui.FlxButton;
+#end
 
 class MusicBeatState extends FlxUIState
 {
