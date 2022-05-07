@@ -8,6 +8,7 @@ import flixel.input.actions.FlxActionInputDigital;
 import flixel.input.actions.FlxActionManager;
 import flixel.input.actions.FlxActionSet;
 import flixel.input.gamepad.FlxGamepadButton;
+import flixel.addons.ui.FlxUIState;
 import flixel.input.gamepad.FlxGamepadInputID;
 import flixel.input.keyboard.FlxKey;
 import flixel.group.FlxGroup;
