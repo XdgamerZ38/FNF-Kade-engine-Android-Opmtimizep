@@ -1,108 +1,100 @@
-package ui;
+#if mobileC
+package mobile;
 
-import flixel.FlxG;
 import flixel.graphics.FlxGraphic;
+import flixel.addons.ui.FlxButtonPlus;
 import flixel.FlxSprite;
+import flixel.FlxG;
+import flixel.graphics.frames.FlxTileFrames;
 import flixel.group.FlxSpriteGroup;
+import flixel.math.FlxPoint;
+import flixel.system.FlxAssets;
+import flixel.util.FlxDestroyUtil;
 import flixel.ui.FlxButton;
 import flixel.graphics.frames.FlxAtlasFrames;
+import flixel.graphics.frames.FlxFrame;
+import flixel.ui.FlxVirtualPad;
 import flixel.tweens.FlxTween;
 import flixel.tweens.FlxEase;
 
+// copyed from flxvirtualpad
 class Hitbox extends FlxSpriteGroup
 {
-	public var hitbox:FlxSpriteGroup;
+    public var hitbox:FlxSpriteGroup;
 
-	var sizex:Float = 320;
+    var sizex:Int = 320;
 
-	var screensizey:Int = 720;
+    var screensizey:Int = 720;
 
-	public var buttonLeft:FlxButton;
-	public var buttonDown:FlxButton;
-	public var buttonUp:FlxButton;
-	public var buttonRight:FlxButton;
-	
-	public function new(?widghtScreen:Float)
-	{
-		super();
+    public var buttonLeft:FlxButton;
+    public var buttonDown:FlxButton;
+    public var buttonUp:FlxButton;
+    public var buttonRight:FlxButton;
 
-		if (widghtScreen == null)
-			widghtScreen = FlxG.width;
+    public function new(?widghtScreen:Int)
+    {
+        super();
 
-		sizex = widghtScreen != null ? widghtScreen / 4 : 320;
+        /*if (widghtScreen == null)
+            widghtScreen = FlxG.width;*/
 
-		
-		//add graphic
-		hitbox = new FlxSpriteGroup();
-		hitbox.scrollFactor.set();
-
-		var hitbox_hint:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('hitbox/hitbox_hint', 'shared'));
-
-		hitbox_hint.alpha = 0.35;
-
-		if (sizex != 320)
-		{
-		hitbox_hint.setGraphicSize(FlxG.width);
-		hitbox_hint.updateHitbox();
-		}
-			
-		add(hitbox_hint);
+        sizex = widghtScreen != null ? Std.int(widghtScreen / 4) : 320;
 
 
-		hitbox.add(add(buttonLeft = createhitbox(0, "left")));
+        //add graphic
+        hitbox = new FlxSpriteGroup();
+        hitbox.scrollFactor.set();
 
-		hitbox.add(add(buttonDown = createhitbox(sizex, "down")));
+        var hitbox_hint:FlxSprite = new FlxSprite(0, 0).loadGraphic('assets/shared/images/hitbox/hitbox_hint.png');
 
-		hitbox.add(add(buttonUp = createhitbox(sizex * 2, "up")));
+        hitbox_hint.alpha = 0.2;
 
-		hitbox.add(add(buttonRight = createhitbox(sizex * 3, "right")));
-	}
+        add(hitbox_hint);
 
-	public function createhitbox(X:Float, framestring:String) {
-		var button = new FlxButton(X, 0);
-		var frames = Paths.getSparrowAtlas('hitbox/hitbox', 'shared');
-		
-		var graphic:FlxGraphic = FlxGraphic.fromFrame(frames.getByName(framestring));
 
-		button.loadGraphic(graphic);
+        hitbox.add(add(buttonLeft = createhitbox(0, "left")));
 
-		/*button.width = sizex;
-		button.height = FlxG.height;*/
-		button.setGraphicSize(Std.int(sizex), FlxG.height);
-		button.updateHitbox();
+        hitbox.add(add(buttonDown = createhitbox(sizex, "down")));
 
-		button.alpha = 0;
+        hitbox.add(add(buttonUp = createhitbox(sizex * 2, "up")));
 
-		var tween:FlxTween;
+        hitbox.add(add(buttonRight = createhitbox(sizex * 3, "right")));
+    }
 
-		button.onDown.callback = function (){
-			if (tween != null)
-				tween.cancel();
-			tween = FlxTween.num(button.alpha, 0.75, .075, {ease: FlxEase.circInOut}, function (a:Float) { button.alpha = a; });
-		};
+    public function createhitbox(X:Float, framestring:String) {
+        var button = new FlxButton(X, 0);
+        var frames = FlxAtlasFrames.fromSparrow('assets/shared/images/hitbox/hitbox.png', 'assets/shared/images/hitbox/hitbox.xml');
 
-		button.onUp.callback = function (){
-			if (tween != null)
-				tween.cancel();
-			tween = FlxTween.num(button.alpha, 0, .15, {ease: FlxEase.circInOut}, function (a:Float) { button.alpha = a; });
-		}
-		
-		button.onOut.callback = function (){
-			if (tween != null)
-				tween.cancel();
-			tween = FlxTween.num(button.alpha, 0, .15, {ease: FlxEase.circInOut}, function (a:Float) { button.alpha = a; });
-		}
+        var graphic:FlxGraphic = FlxGraphic.fromFrame(frames.getByName(framestring));
 
-		return button;
-	}
+        button.loadGraphic(graphic);
 
-	override public function destroy():Void
-		{
-			super.destroy();
-	
-			buttonLeft = null;
-			buttonDown = null;
-			buttonUp = null;
-			buttonRight = null;
-		}
-}
+        button.alpha = 0;
+
+
+        button.onDown.callback = function (){
+            FlxTween.num(0, 0.75, .075, {ease: FlxEase.circInOut}, function (a:Float) { button.alpha = a; });
+        };
+
+        button.onUp.callback = function (){
+            FlxTween.num(0.75, 0, .1, {ease: FlxEase.circInOut}, function (a:Float) { button.alpha = a; });
+        }
+
+        button.onOut.callback = function (){
+            FlxTween.num(button.alpha, 0, .2, {ease: FlxEase.circInOut}, function (a:Float) { button.alpha = a; });
+        }
+
+        return button;
+    }
+
+    override public function destroy():Void
+        {
+            super.destroy();
+
+            buttonLeft = null;
+            buttonDown = null;
+            buttonUp = null;
+            buttonRight = null;
+        }
+} 
+#end
