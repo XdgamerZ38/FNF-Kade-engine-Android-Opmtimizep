@@ -1,18 +1,16 @@
 package;
 
-#if desktop
-import Discord.DiscordClient;
-import sys.thread.Thread;
+#if sys
+import smTools.SMFile;
 #end
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
-import flixel.input.keyboard.FlxKey;
 import flixel.addons.display.FlxGridOverlay;
 import flixel.addons.transition.FlxTransitionSprite.GraphicTransTileDiamond;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.addons.transition.TransitionData;
-//import flixel.graphics.FlxGraphic;
+import flixel.graphics.FlxGraphic;
 import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.group.FlxGroup;
 import flixel.input.gamepad.FlxGamepad;
@@ -27,6 +25,14 @@ import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 import lime.app.Application;
 import openfl.Assets;
+
+#if windows
+import Discord.DiscordClient;
+#end
+
+#if cpp
+import sys.thread.Thread;
+#end
 
 using StringTools;
 
