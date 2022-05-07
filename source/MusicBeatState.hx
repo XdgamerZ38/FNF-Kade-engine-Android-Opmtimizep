@@ -13,6 +13,8 @@ import flixel.addons.ui.FlxUIState;
 import flixel.math.FlxRect;
 import flixel.util.FlxTimer;
 #if mobileC
+import mobile.FlxVirtualPad;
+import flixel.input.actions.FlxActionInput;
 import flixel.input.keyboard.FlxKey;
 import flixel.group.FlxGroup;
 import ui.Hitbox;
