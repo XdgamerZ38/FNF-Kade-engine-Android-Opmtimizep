@@ -1,7 +1,7 @@
 ![Kade Engine logo](assets/preload/images/KadeEngineLogo.png)
 
 # Friday Night Funkin': Kade Engine Android port
-This is a android port of [Kade Engine 1.5.4](https://github.com/KadeDev/Kade-Engine/tree/1.5.4), maybe there will be things from new versions of KE
+This is a android port of [FNF Kade Engine Android](https://github.com/KadeDev/Kade-Engine/tree/1.5.4), maybe there will be things from new versions of KE
 
 ## Friday Night Funkin': Kade Engine
 **Kade Engine** is a mod for Friday Night Funkin', including a full engine rework, replays, and more.
